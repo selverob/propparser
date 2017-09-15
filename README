@@ -1,0 +1,58 @@
+Formula Parser
+===============
+Róbert Selvek, BI-MLO 306, selverob@fit.cvut.cz
+
+An implementation of propositional logic formula parser and manipulator.
+Done as a homework assignment from Mathematical Logic course at FIT ČVUT.
+
+Quick reference
+----------------
+
+The program is implemented as a Python 3 script, on systems which support
+`/usr/bin/env` and have Python 3 installed as `python3`, it can be invoked as
+an executable.
+
+`./main.py <command> [--format <input format>] <formula>`
+
+Formula format
+---------------
+
+Formulas can be entered in either infix, prefix or postfix format, as
+specified by the `--format` parameter, which is set to `infix` by default.
+They are composed of variables and operators.
+
+A variable is any alphanumeric string (which means that numbers can be used as
+variable names, too).
+
+There are 5 implemented operators:
+
+* - is logical negation (and the only unary operator)/NOT
+* + is logical conjunction/AND
+* . is logical disjunction/OR
+* > is logical implication
+* = is logical equivalence
+
+Variable names are automatically broken on operator characters, so that
+"Abc+Def" would be parsed as a conjunction of "Abc" and "Def". Because of
+that, infix formulas can be written without using spaces. On the other hand,
+spaces are necessary in postfix and prefix formats ("AbcDef+" would result in
+an error, the correct way to write it is "Abc Def +").
+
+Supported commands
+-------------------
+
+* `infix`, `prefix` and `postfix` - Print the formula in the given format.
+`Infix formulas are parenthesised automatically.
+
+* `evaluate` - Evaluate the formula with variables set to the values given by
+the `--values` parameter. The parameter must be a binary number, each digit of
+which represents the value of the variable that's on the given lexicographix
+position in formula. For example:     
+	`./main.py evaluate --values 011 "(B + -A) . (A + C)"` would evaluate the
+	given formula with  `A` being false, `B` true and `C` true.
+
+* `table` - Prints an evaluation table of the formula and whether the formula
+is satisfiable, a contradiction or a tautology.
+
+* `digraph` - Prints a representation of the formula's parse tree which can be
+rendered by GraphViz.
